@@ -190,7 +190,3 @@ More in [`docs/decisions.md`](docs/decisions.md).
 ## Roadmap
 
 DOCX and PDF parsers (the registry is ready for them), streaming SQL, a reversible mode that keeps an encrypted map for re-identification, and per-locale fakers.
-
-## License
-
-MIT

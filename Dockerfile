@@ -21,7 +21,7 @@ FROM base AS dev
 RUN apt-get update && apt-get install -y --no-install-recommends git && rm -rf /var/lib/apt/lists/*
 ARG EXTRAS=dev
 ARG SPACY_MODEL=""
-COPY pyproject.toml README.md LICENSE ./
+COPY pyproject.toml README.md ./
 COPY src ./src
 RUN sh /usr/local/bin/piiredact-install -e "$EXTRAS" "$SPACY_MODEL"
 COPY . .
@@ -30,7 +30,7 @@ CMD ["bash"]
 FROM base AS runtime
 ARG EXTRAS=""
 ARG SPACY_MODEL=""
-COPY pyproject.toml README.md LICENSE ./
+COPY pyproject.toml README.md ./
 COPY src ./src
 COPY configs ./configs
 RUN sh /usr/local/bin/piiredact-install "" "$EXTRAS" "$SPACY_MODEL"
