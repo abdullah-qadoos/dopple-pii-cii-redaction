@@ -1,0 +1,16 @@
+locale: en_US
+default_phone_region: US
+detectors: [rules, hints]
+gliner:
+  model: urchade/gliner_multi_pii-v1
+  threshold: 0.35
+  hinted_threshold: 0.2
+  batch_size: 16
+  window_words: 350
+  overlap_words: 40
+presidio:
+  spacy_model: en_core_web_lg
+anon_markers: ["[REDACTED]", "***", "N/A", "n/a", "null", "-", "XXXX"]
+allowlist: []
+skip_columns: []
+max_cell_chars: 20000

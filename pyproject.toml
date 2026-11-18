@@ -1,0 +1,53 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "piiredact"
+version = "0.1.0"
+description = "Local PII redactor: finds personal and company data in files and swaps it for consistent, format-preserving fakes."
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.11"
+dependencies = [
+  "typer>=0.12",
+  "rich>=13",
+  "pydantic>=2.6",
+  "PyYAML>=6",
+  "Faker>=24",
+  "phonenumbers>=8.13",
+  "openpyxl>=3.1",
+  "presidio-analyzer>=2.2",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "pytest-cov>=5", "ruff>=0.5", "mypy>=1.10", "pre-commit>=3.7", "types-PyYAML"]
+model = ["gliner>=0.2", "torch>=2.2"]
+demo = ["streamlit>=1.35"]
+
+[project.scripts]
+piiredact = "piiredact.cli:app"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/piiredact"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+extend-exclude = ["PII_REDACTOR_BUILD_SPEC.md"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "SIM"]
+
+[tool.mypy]
+strict = true
+python_version = "3.11"
+files = ["src"]
+
+[[tool.mypy.overrides]]
+module = ["presidio_analyzer.*", "gliner.*", "openpyxl.*", "faker.*", "phonenumbers.*"]
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "--cov=piiredact --cov-report=term-missing"

@@ -1,0 +1,18 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build dev image
+        run: docker build --target dev -t piiredact-dev .
+      - name: Lint, types, tests (rules-only, no model download)
+        run: docker run --rm piiredact-dev sh -c "ruff check . && mypy src && pytest -q"
+      - name: Build runtime image
+        run: docker build --target runtime -t piiredact . && docker run --rm piiredact --help

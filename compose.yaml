@@ -1,0 +1,17 @@
+# Dev loop:  docker compose run --rm dev pytest -q
+#            docker compose run --rm dev piiredact --help
+services:
+  dev:
+    build:
+      context: .
+      target: dev
+      args:
+        EXTRAS: ${EXTRAS:-dev}
+    image: piiredact-dev
+    volumes:
+      - .:/app
+      - hf-cache:/root/.cache/huggingface  # GLiNER model downloads once and survives rebuilds
+    working_dir: /app
+
+volumes:
+  hf-cache:
