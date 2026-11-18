@@ -9,3 +9,6 @@ __pycache__/
 .ruff_cache/
 .coverage
 htmlcov/
+
+# local planning / design notes, not part of the project
+PII_REDACTOR_BUILD_SPEC.md

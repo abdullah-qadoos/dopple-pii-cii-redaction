@@ -1,17 +1,30 @@
-# Dev loop:  docker compose run --rm dev pytest -q
-#            docker compose run --rm dev piiredact --help
+# Light (rules-only, like CI):  docker compose build
+# Full (GLiNER + Presidio + demo): EXTRAS=dev,model,demo SPACY_MODEL=en_core_web_lg docker compose build
+#
+#   docker compose run --rm dev pytest -q
+#   docker compose run --rm dev piiredact --help
+#   docker compose up demo        -> http://localhost:8501
+x-dev: &dev
+  build:
+    context: .
+    target: dev
+    args:
+      EXTRAS: ${EXTRAS:-dev}
+      SPACY_MODEL: ${SPACY_MODEL:-}
+  image: piiredact-dev
+  volumes:
+    - .:/app
+    - hf-cache:/root/.cache/huggingface  # GLiNER downloads once and survives rebuilds
+  working_dir: /app
+
 services:
   dev:
-    build:
-      context: .
-      target: dev
-      args:
-        EXTRAS: ${EXTRAS:-dev}
-    image: piiredact-dev
-    volumes:
-      - .:/app
-      - hf-cache:/root/.cache/huggingface  # GLiNER model downloads once and survives rebuilds
-    working_dir: /app
+    <<: *dev
+  demo:
+    <<: *dev
+    command: piiredact demo
+    ports:
+      - "8501:8501"
 
 volumes:
   hf-cache:

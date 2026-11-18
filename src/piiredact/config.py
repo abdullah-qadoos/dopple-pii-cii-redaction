@@ -22,6 +22,7 @@ class GlinerSettings(_Strict):
     batch_size: int = 16
     window_words: int = 350
     overlap_words: int = 40
+    context_prompt: bool = True  # run short cells as "<column>: <value>"
 
 
 class PresidioSettings(_Strict):
@@ -31,6 +32,7 @@ class PresidioSettings(_Strict):
 class Settings(_Strict):
     locale: str = "en_US"
     default_phone_region: str = "US"
+    extra_phone_regions: list[str] = ["GB", "PK", "DE", "IN"]  # tried for numbers starting with 0
     detectors: list[DetectorName] = ["rules", "presidio", "gliner", "hints"]
     gliner: GlinerSettings = GlinerSettings()
     presidio: PresidioSettings = PresidioSettings()

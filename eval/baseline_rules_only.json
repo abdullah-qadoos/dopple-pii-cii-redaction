@@ -1,0 +1,79 @@
+{
+  "overall": {
+    "gold": 1663,
+    "findings": 1567,
+    "recall": 0.9423,
+    "precision": 1.0,
+    "f2": 0.9533
+  },
+  "any_type_recall": 0.9423,
+  "hard_recall": 0.8262,
+  "easy_recall": 0.9787,
+  "per_type": {
+    "PERSON": {
+      "gold": 427,
+      "findings": 373,
+      "recall": 0.8735,
+      "precision": 1.0,
+      "f2": 0.8962
+    },
+    "EMAIL": {
+      "gold": 320,
+      "findings": 320,
+      "recall": 1.0,
+      "precision": 1.0,
+      "f2": 1.0
+    },
+    "PHONE": {
+      "gold": 227,
+      "findings": 227,
+      "recall": 1.0,
+      "precision": 1.0,
+      "f2": 1.0
+    },
+    "ADDRESS": {
+      "gold": 249,
+      "findings": 209,
+      "recall": 0.8394,
+      "precision": 1.0,
+      "f2": 0.8673
+    },
+    "ORG": {
+      "gold": 230,
+      "findings": 228,
+      "recall": 0.9913,
+      "precision": 1.0,
+      "f2": 0.993
+    },
+    "DOMAIN_URL": {
+      "gold": 29,
+      "findings": 29,
+      "recall": 1.0,
+      "precision": 1.0,
+      "f2": 1.0
+    },
+    "CREDIT_CARD": {
+      "gold": 72,
+      "findings": 72,
+      "recall": 1.0,
+      "precision": 1.0,
+      "f2": 1.0
+    },
+    "IBAN": {
+      "gold": 61,
+      "findings": 61,
+      "recall": 1.0,
+      "precision": 1.0,
+      "f2": 1.0
+    },
+    "NATIONAL_ID": {
+      "gold": 48,
+      "findings": 48,
+      "recall": 1.0,
+      "precision": 1.0,
+      "f2": 1.0
+    }
+  },
+  "decoy_false_positives": {},
+  "decoys": 351
+}

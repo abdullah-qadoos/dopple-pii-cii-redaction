@@ -1,5 +1,6 @@
 locale: en_US
 default_phone_region: US
+extra_phone_regions: [GB, PK, DE, IN]   # tried for numbers that start with 0
 detectors: [rules, hints]
 gliner:
   model: urchade/gliner_multi_pii-v1
@@ -8,9 +9,11 @@ gliner:
   batch_size: 16
   window_words: 350
   overlap_words: 40
+  context_prompt: true        # short cells go to the model as "<column>: <value>"
 presidio:
   spacy_model: en_core_web_lg
 anon_markers: ["[REDACTED]", "***", "N/A", "n/a", "null", "-", "XXXX"]
-allowlist: []
+# words never treated as PII (tuned on the dev split only: generic headers and UI words)
+allowlist: [shipping, phone, email, name, company, customers, contact, notes, street, city, amount, invoice, owner, internal, refund, placeholder]
 skip_columns: []
 max_cell_chars: 20000

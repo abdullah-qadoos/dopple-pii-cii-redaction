@@ -10,9 +10,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Build dev image
+      - name: Build dev image (rules-only, no model download)
         run: docker build --target dev -t piiredact-dev .
-      - name: Lint, types, tests (rules-only, no model download)
-        run: docker run --rm piiredact-dev sh -c "ruff check . && mypy src && pytest -q"
+      - name: Lint, types, tests
+        run: docker run --rm piiredact-dev sh -c "ruff check . && ruff format --check . && mypy src && pytest -q"
+      - name: Recall regression gate (rules-only)
+        run: |
+          docker run --rm piiredact-dev sh -c "
+            piiredact synth --out /tmp/synth --seed 1 --files-per-format 5 &&
+            piiredact scan /tmp/synth/dev/files --out /tmp/out --config configs/rules_only.yaml &&
+            piiredact eval --gold /tmp/synth/dev/gold.jsonl --findings /tmp/out/findings.jsonl --baseline eval/baseline_rules_only.json"
       - name: Build runtime image
         run: docker build --target runtime -t piiredact . && docker run --rm piiredact --help
